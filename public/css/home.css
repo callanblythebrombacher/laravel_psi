@@ -30,7 +30,7 @@
         width: 80vw;
         height: 100%;
         z-index: 1;
-        margin: 200px auto 200px auto;
+        margin: 200px auto 200px auto !important;
         position: relative !important;
         box-shadow: 2px 2px 4px 4px rgba(26, 30, 33, 0.19);
     }
@@ -64,6 +64,10 @@
     .carousel{
         padding: 5vw;
         width: 100vw !important;
+    }
+
+    .form-control{
+        font-size: 38px !important;
     }
 
 }
