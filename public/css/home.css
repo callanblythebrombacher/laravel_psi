@@ -1,0 +1,17 @@
+form{
+    border: 0 solid black;
+    border-radius: 15px;
+    padding: 50px;
+    width: 30vw;
+    z-index: 2;
+    position: absolute;
+    right:20px;
+    top:150px;
+    box-shadow: 2px 2px 4px 4px rgba(26, 30, 33, 0.19);
+}
+
+.carousel{
+    padding: 5vw;
+    width: 60vw !important;
+}
+
