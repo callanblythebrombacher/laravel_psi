@@ -1,0 +1,93 @@
+#loginForm, #signupForm{
+    position: static !important;
+    margin:auto !important;
+    z-index: 100 !important;
+    right: 0 !important;
+    top: 0 !important;
+    width: fit-content !important;
+
+}
+
+.modal-content{
+    border:none !important;
+    background: none !important;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+@media only screen and (min-device-width: 968px){
+    form{
+        border: 0 solid black;
+        border-radius: 15px;
+        padding: 50px;
+        width: 30vw;
+        z-index: 2;
+        position: absolute;
+        right:20px;
+        top:150px;
+        box-shadow: 2px 2px 4px 4px rgba(26, 30, 33, 0.19);
+    }
+
+    .carousel{
+        padding: 5vw;
+        width: 60vw !important;
+    }
+}
+
+@media only screen and (max-device-width: 968px){
+    .homepage{
+        display: flex;
+        flex-direction: column;
+    }
+
+    form{
+        border: 0 solid black;
+        border-radius: 15px;
+        padding: 50px;
+        width: 80vw;
+        height: 100%;
+        z-index: 1;
+        margin: 200px auto 200px auto !important;
+        position: relative !important;
+        box-shadow: 2px 2px 4px 4px rgba(26, 30, 33, 0.19);
+    }
+
+    h1{
+        font-size: 60px !important;
+    }
+
+    h2{
+        font-size: 58px !important;
+    }
+    h2{
+        font-size: 52px !important;
+    }
+    h3{
+        font-size: 48px !important
+    }
+
+    form > h3 {
+        font-size: 56px !important;
+    }
+    p, label, input{
+        font-size: 42px !important;
+    }
+    small{
+        font-size: 38px !important;
+    }
+    .btn{
+        font-size: 46px !important;
+    }
+    .carousel{
+        padding: 5vw;
+        width: 100vw !important;
+    }
+
+    .form-control{
+        font-size: 38px !important;
+    }
+
+}
+
+

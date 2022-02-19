@@ -1,7 +1,9 @@
 const mix = require('mix');
 
-mix
-    .js("resources/js/app.js", "public/js")
+mix('resources/js/app.js', 'public/js')
     .react()
-    .extract(["react"])
-    .sass("resources/sass/app.scss", "public/css");
+    .sass('resources/sass/app.scss', 'public/css')
+    .setResourceRoot("/")
+    .browserSync('localhost:8000')
+    .sourceMaps(true, 'source-map');
+

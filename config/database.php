@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'sqlsrv'),
+    'default' => 'sqlsrv',
 
     /*
     |--------------------------------------------------------------------------
@@ -80,12 +80,12 @@ return [
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
-            'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', 'localhost'),
+            'url' => '',
+            'host' => env('DB_HOST', 'psi-assessments.database.windows.net'),
             'port' => env('DB_PORT', '1433'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'database' => env('DB_DATABASE', 'callan_brombacher'),
+            'username' => env('DB_USERNAME', 'callan'),
+            'password' => env('DB_PASSWORD', 'E*kfGHp4JXv#3Qng'),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
