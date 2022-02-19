@@ -3,12 +3,14 @@ import {Navbar, Nav, Button, Offcanvas} from 'react-bootstrap'
 import logo from "/images/logo.png"
 import {Link} from "react-router-dom";
 import {isMobile, isTablet} from "react-device-detect";
-
+import VerticallyCenteredModal from "./modal.component";
 
 export default function Header(){
     const [show, setShow] = useState(false);
+    const [modalShow, setModalShow] = useState(false);
+    const [isLogin, setIsLogin] = useState(false)
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {setShow(false); setModalShow(true)};
     const handleShow = () => setShow(true);
 
 
@@ -29,13 +31,18 @@ return (
                         <Nav
                             className="me-auto my-2 my-lg-0"
                             navbarScroll>
-                            <Link className="route" to="/"><Nav.Link onClick={{handleClose}}>Signup</Nav.Link></Link>
-                            <Link className="route" to="/"><Nav.Link onClick={{handleClose}}>Login</Nav.Link></Link>
+                            <Link className="route" to="/"><Nav.Link onClick={()=>{handleClose(); setIsLogin(false) }}>Signup</Nav.Link></Link>
+                            <Link className="route" to="/"><Nav.Link onClick={()=>{handleClose(); setIsLogin(true) }}>Login</Nav.Link></Link>
                         </Nav>
                     </div>
                 </Offcanvas.Body>
             </Offcanvas>
         </Navbar>
+        <VerticallyCenteredModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            content=''
+        />
         </div>):(
         <div>
             <Navbar bg="light" expand="lg">
@@ -45,11 +52,17 @@ return (
                                 className="me-auto my-2 my-lg-0"
                                 style={{ maxHeight: '100px' }}
                                 navbarScroll>
-                                <Link className="route" to="/"><Nav.Link>Signup</Nav.Link></Link>
-                                <Link className="route" to="/"><Nav.Link>Login</Nav.Link></Link>
+                                <Link className="route" to="/"><Nav.Link onClick={()=>{setIsLogin(false); setModalShow(true)}}>Signup</Nav.Link></Link>
+                                <Link className="route" to="/"><Nav.Link onClick={()=>{setIsLogin(true); setModalShow(true)}}>Login</Nav.Link></Link>
                             </Nav>
                     </div>
             </Navbar>
+            <VerticallyCenteredModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                content=''
+                isLogin={isLogin}
+            />
     </div>)
     )
 }

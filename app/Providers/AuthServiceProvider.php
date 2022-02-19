@@ -14,7 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+         'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**
@@ -26,15 +26,15 @@ class AuthServiceProvider extends ServiceProvider
     {
 
         $this->registerPolicies();
-
-        Passport::hashClientSecrets();
-
         Passport::routes();
-
-        Passport::loadKeysFrom(__DIR__.'/../secrets/oauth');
-
-        Passport::tokensExpireIn(now()->addDays(15));
-        Passport::refreshTokensExpireIn(now()->addDays(30));
-        Passport::personalAccessTokensExpireIn(now()->addMonths(6));
+        Passport::loadKeysFrom(__DIR__.'/../../storage');
+        Passport::tokensCan([
+            'createUsers' => 'can create new users',
+            'editUsers' => 'can edit users',
+            'deleteUsers' => 'can delete users',
+            'editCurrent' => 'can edit current profile',
+            'isAdmin' => 'has access to admin privileges',
+            'canCreateAdmin' => 'can create admin level user',
+        ]);
     }
 }

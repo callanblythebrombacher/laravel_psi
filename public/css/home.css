@@ -1,3 +1,21 @@
+#loginForm, #signupForm{
+    position: static !important;
+    margin:auto !important;
+    z-index: 100 !important;
+    right: 0 !important;
+    top: 0 !important;
+    width: fit-content !important;
+
+}
+
+.modal-content{
+    border:none !important;
+    background: none !important;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
 @media only screen and (min-device-width: 968px){
     form{
         border: 0 solid black;
@@ -72,10 +90,4 @@
 
 }
 
-#formBasicText{
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    align-content: baseline;
-    margin-bottom: 200px;
-}
+
