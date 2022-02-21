@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
+use Laravel\Passport\PersonalAccessClientId;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -27,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->registerPolicies();
         Passport::routes();
-        Passport::loadKeysFrom(__DIR__.'/../../storage');
+        Passport::loadKeysFrom(__DIR__ . '/../../storage');
         Passport::tokensCan([
             'createUsers' => 'can create new users',
             'editUsers' => 'can edit users',
@@ -36,5 +37,6 @@ class AuthServiceProvider extends ServiceProvider
             'isAdmin' => 'has access to admin privileges',
             'canCreateAdmin' => 'can create admin level user',
         ]);
+
     }
 }

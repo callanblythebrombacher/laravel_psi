@@ -1,5 +1,5 @@
 const Axios = require('axios');
-
+import {csrfToken, xsrfToken} from '../services/csrfToken'
 /**
  *
  * @param email
@@ -7,23 +7,7 @@ const Axios = require('axios');
  */
 
 export default function Login(email, password) {
-
-    const data = {
-        password: password,
-        email: email,
-    };
-
-    return Axios.post('/api/login', data)
-        .then(response => {
-            console.log(response.data);
-        })
-        .then(response => {
-            // List errors on response...
-          if(response.status === 200){
-              Axios.post('/api/redirect-user/').then(r => r.data)
-          }else{
-              console.log(response.data)
-          }
-
-        });
+    Axios.post('/api/login', {email:email, password:password})
 }
+
+

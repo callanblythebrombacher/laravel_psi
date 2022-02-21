@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,21 +16,28 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware'=>['auth:api','cors']], function(){
 
-
-Route::group(['middleware'=>['auth:api','cors', 'scope:isAdmin']], function(){
     Route::get('/admin-area', function () {
+
         return view('adminDash');
+
     })->middleware([
-        'auth:api', 'scope:createUser',
-        'scope:deleteUser', 'scope:editCurrentProfile',
-        'scope:editUser', 'scope:canCreateAdmin',]);
+        'scope:createUser',
+        'scope:deleteUser',
+        'scope:editCurrentProfile',
+        'scope:editUser',
+        'scope:canCreateAdmin',]);
+
+    Route::get('/user-area', function () {
+        return view('userDash');
+    })->middleware([
+        'scope:editCurrentProfile',]);
+
 });
 
-    Route::group(['middleware'=>['auth:api','cors']], function(){
-        Route::get('/user-area', function () {
-            return view('userDash');
-        })->middleware([
-            'auth:api',
-            'scope:editCurrentProfile',]);
-    });
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

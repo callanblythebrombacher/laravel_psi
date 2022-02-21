@@ -1,14 +1,16 @@
 <?php
 
-    namespace App\Http\Controllers\Api;
+    namespace App\Http\Controllers;
 
-    use App\Http\Controllers\Controller;
-    use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\Hash;
-    use Illuminate\Support\Facades\Validator;
-    use Illuminate\Support\Str;
-    use Laravel\Passport;
     use App\Models\User;
+    use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\DB;
+    use Illuminate\Support\Facades\Hash;
+    use Illuminate\Support\Facades\Http;
+    use Illuminate\Support\Facades\Validator;
+    use function App\Http\Controllers\Api\app;
+    use function App\Http\Controllers\Api\auth;
+    use function App\Http\Controllers\Api\response;
 
 
     class PassportAuthController extends Controller {
@@ -22,37 +24,65 @@
         }
 
         public function register (Request $request) {
+
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:6|confirmed',
             ]);
+
             if ($validator->fails())
             {
                 return response(['errors'=>$validator->errors()->all()], 422);
             }
+
             $request['password']=Hash::make($request['password']);
-            $request['remember_token'] = Str::random(10);
+
             User::create($request->toArray());
-             $response = ['response' => 'registered'];
+            $response = ['response' => 'registered'];
+
+            if(User::count() === 1){
+                DB::table('users')->update(['access_level'=>true]);
+            }
+
             return response($response, 200);
         }
 
         public function login (Request $request) {
+
             $validator = Validator::make($request->all(), [
-                'email' => 'required|string|email|max:255',
-                'password' => 'required|string|min:6|confirmed',
+                'email' => 'required|string|max:255',
+                'password' => 'required|string|min:6',
             ]);
+
             if ($validator->fails())
             {
                 return response(['errors'=>$validator->errors()->all()], 422);
             }
+
             $user = User::where('email', $request->email)->first();
             if ($user) {
+
                 if (Hash::check($request->password, $user->password)) {
-                    $response = ['message' => 'logged in'];
-                    return response($response, 200);
-                } else {
+
+                    $clientRepository = app('Laravel\Passport\ClientRepository');
+                    $client = $clientRepository->create($user->id, 'MyTest', 'http://localhost:8000/', 0, 0,1);
+                    $client_secret = DB::table('oauth_clients')->where('oauth_clients.id', '=',$client['id'])->get()->first()->secret;
+
+                    $response = Http::asForm()->post('http://localhost:8001/oauth/token', [
+
+                            'grant_type' => 'password',
+                            'client_id' => $client['id'],
+                            'client_secret' => $client_secret,
+                            'username' => $user->email,
+                            'password' => $request->password,
+                            'scope' => ($user->access_level) ? 'editUsers deleteUsers isAdmin canCreateAdmin editCurrent createUsers': 'canEdit',
+
+                        ]);
+
+                    return json_decode((string) $response->getBody(), true);
+                    }
+                else {
                     $response = ["message" => "Password mismatch"];
                     return response($response, 422);
                 }
@@ -68,5 +98,6 @@
             return response()->json( [ 'user' => $user ], 200 );
 
         }
+
 
     }

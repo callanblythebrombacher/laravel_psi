@@ -1,3 +1,5 @@
+import {csrfToken, xsrfToken} from "../services/csrfToken";
+
 const Axios = require('axios');
 
 /**
@@ -18,9 +20,19 @@ export default function createUser(email, firstname, lastname, password, confirm
         email:email,
         password:password,
         password_confirmation: confirm_password,
+        _token:csrfToken
     };
 
-    return Axios.post('/api/register-user', data)
+    const header = {
+        headers:{
+            'X-XSRF-TOKEN': xsrfToken,
+            'X-CSRF-TOKEN': csrfToken,
+            'withCredentials': 'true',
+        }
+    }
+
+
+    return Axios.post('/api/register-user', data, header )
         .then(response => {
             console.log(response.data);
         })

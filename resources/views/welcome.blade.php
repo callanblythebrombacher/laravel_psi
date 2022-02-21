@@ -1,9 +1,11 @@
 
 <head>
     <!-- Include Frontend Application (webpack mix) -->
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script defer src="/js/manifest.js"></script>
     <script defer src="/js/vendor.js"></script>
     <script defer src="/js/app.js"></script>
+    <script defer src="/js/csrfToken.js"></script>
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"

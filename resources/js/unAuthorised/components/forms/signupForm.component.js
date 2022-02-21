@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, CloseButton, Form} from "react-bootstrap";
 import createUser from "../../../api/registerApi";
+import {csrfToken} from "../../../services/csrfToken";
 export default function SignupForm(props){
 
     const [state, setState] = React.useState(
@@ -64,7 +65,6 @@ export default function SignupForm(props){
                 <Form.Label>Password</Form.Label>
                 <Form.Control value={state.ConfirmPassword}  onChange={handleOnChange} name="ConfirmPassword" type="Password"  placeholder="Password"  />
             </Form.Group>
-
             <Button onClick={handleOnSubmit} variant="primary" type="Button">
                 Submit
             </Button>

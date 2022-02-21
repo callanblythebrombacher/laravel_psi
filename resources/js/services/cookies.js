@@ -1,4 +1,4 @@
-const setCookie = (options) => {
+export const setCookie = (options) => {
     const {
         name,
         value = '',
@@ -14,7 +14,7 @@ const setCookie = (options) => {
         `${name}=${escape(value)}; expires=${expires.toUTCString()}; path=${path}`;
 }
 
-const getCookie = (name, cast = String) => {
+export const getCookie = (name, cast = String) => {
     if (document.cookie.length == 0)
         return;
 
@@ -31,14 +31,15 @@ const getCookie = (name, cast = String) => {
     return cast(unescape(value));
 }
 
-const cookieExists = (name) => {
+export const cookieExists = (name) => {
     return getCookie(name) !== undefined;
 }
 
-const deleteCookie = (name) => {
+export const deleteCookie = (name) => {
     setCookie({
         name: name,
         value: undefined,
         duration: -1,
     });
 }
+

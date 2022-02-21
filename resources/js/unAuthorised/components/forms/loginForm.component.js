@@ -2,14 +2,12 @@ import React from 'react';
 import {Button, CloseButton, Form} from "react-bootstrap";
 import Login from "../../../api/loginApi"
 
+
 export default function LoginForm(props){
     const [state, setState] = React.useState(
         {
-        FirstName:'',
-        LastName:'',
         Email:'',
         Password:'',
-        ConfirmPassword:''
     });
 
     const handleChange = (e) => {
@@ -34,7 +32,7 @@ export default function LoginForm(props){
             </div>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control onChage={handleChange} name="email" value={state.Email} type="email" placeholder="Enter email" />
+                <Form.Control onChange={handleChange} name="Email" value={state.Email} type="email" placeholder="Enter email" />
                 <Form.Text className="text-muted">
                     We'll never share your email with anyone else.
                 </Form.Text>
@@ -42,7 +40,7 @@ export default function LoginForm(props){
 
             <Form.Group className="mb-3" controlId="formBasicPassword" >
                 <Form.Label>Email address</Form.Label>
-                <Form.Control onChange={handleChange} name="password" value={state.Password} type="password" placeholder="Enter password" />
+                <Form.Control onChange={handleChange} name="Password" value={state.Password} type="password" placeholder="Enter password" />
             </ Form.Group>
             <Button variant="primary" type="button" onClick={handleSubmit}>
                 Login
