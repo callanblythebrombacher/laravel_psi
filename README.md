@@ -16,16 +16,10 @@
 - as per the requirements of the assignment
 - better turn around times and the ability to load different components for different screen sizes without the use of breakpoints
 
-#Installation
-
-```
-npm run exec:install
-```
-
 #Start front end server and backend server
 
 ```
-npm run boot
+npm run boot:dev
 ```
 
 #Server host:
