@@ -3,14 +3,14 @@
     namespace App\Http\Controllers;
 
     use App\Models\User;
+    use Artisan;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Hash;
     use Illuminate\Support\Facades\Http;
     use Illuminate\Support\Facades\Validator;
-    use function App\Http\Controllers\Api\app;
-    use function App\Http\Controllers\Api\auth;
-    use function App\Http\Controllers\Api\response;
+    use App\Http\Controllers\Api;
+
 
 
     class PassportAuthController extends Controller {
@@ -43,6 +43,7 @@
 
             if(User::count() === 1){
                 DB::table('users')->update(['access_level'=>true]);
+                Artisan::call('db:seed', ['--class' => 'DatabaseSeeder']);
             }
 
             return response($response, 200);
